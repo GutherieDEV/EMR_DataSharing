@@ -1,0 +1,232 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsddt="http://www.w3.org/2001/XMLSchema-datatypes" targetNamespace="http://fammedmcmaster.ca/OSCAR_Export_IDSBI" xmlns:dfm="http://fammedmcmaster.ca/OSCAR_Export_IDSBI" elementFormDefault="qualified">
+  <!-- Copyright McMaster Department of Family Medicine 2017 -->
+	<xsd:element name="patientrecord">		
+        <xsd:complexType>
+			<xsd:all>
+				<!-- province should be 5 for ontario -->
+				<xsd:element name="province" minOccurs="1" maxOccurs="1">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:positiveInteger">
+							<xsd:minInclusive value="1"></xsd:minInclusive>
+							<xsd:maxInclusive value="13"></xsd:maxInclusive>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>			
+				<!-- clinial group id, must be meaningful to HHS so there are no collisions -->
+			    <xsd:element name="facilitynumber" type="xsd:string" minOccurs="1" maxOccurs="1"></xsd:element>
+				
+				<!-- Not technically a satellite but a site under the clincal umbrella of fammed  -->
+				<xsd:element name="satelliteid" type="xsd:string" minOccurs="1" maxOccurs="1"></xsd:element>
+			
+			
+				<xsd:element name="healthcardnumber" minOccurs="1" maxOccurs="1">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:length value="10"></xsd:length>
+							<xsd:pattern value="\d{10,10}"></xsd:pattern>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			
+				<!-- maps to demographic id -->
+			    <xsd:element name="clientid" type="xsd:string"></xsd:element>
+			    <xsd:element name="birthdate" type="xsd:date"></xsd:element>			
+			    <xsd:element name="gender" type="xsd:string"></xsd:element>			
+			    <xsd:element name="postalcode">
+			    	<xsd:simpleType>
+			    		<xsd:restriction base="xsd:string">
+			    			<xsd:length value="6"></xsd:length>
+			    			<xsd:pattern value="[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d"></xsd:pattern>
+			    		</xsd:restriction>
+			    	</xsd:simpleType>
+			    </xsd:element>
+			
+			    <xsd:element name="patientstatus" minOccurs="1" maxOccurs="1">
+			    	<xsd:simpleType>
+			    		<xsd:restriction base="xsd:string">
+			    			<xsd:enumeration value="AC"></xsd:enumeration>
+			    			<xsd:enumeration value="DE"></xsd:enumeration>
+			    			<xsd:enumeration value="FI"></xsd:enumeration>
+			    			<xsd:enumeration value="ID"></xsd:enumeration>
+			    			<xsd:enumeration value="MO"></xsd:enumeration>
+			    			<xsd:enumeration value="OP"></xsd:enumeration>
+			    		</xsd:restriction>
+			    	</xsd:simpleType>
+			    </xsd:element>
+			
+				<!-- If patient is deceased, get last update date -->
+			    <xsd:element name="terminationdate" type="xsd:date"></xsd:element>
+			
+				<!-- If rostered date is good and no roster_termination_date present -->
+			    <xsd:element name="rostered">
+			    	<xsd:simpleType>
+			    		<xsd:restriction base="xsd:string">
+			    			<xsd:pattern value="[YN]"></xsd:pattern>
+			    		</xsd:restriction>
+			    	</xsd:simpleType>
+			    </xsd:element>
+			
+			    <xsd:element name="visits" minOccurs="0" maxOccurs="1">
+			    	<xsd:complexType>
+			    		<xsd:sequence>
+				    		<xsd:element name="visit" minOccurs="0" maxOccurs="unbounded">
+				    			<xsd:complexType>
+				    				<xsd:all>
+				    					<xsd:element name="visitid" type="xsd:int"></xsd:element>
+				    					<xsd:element name="visitdate" type="xsd:date"></xsd:element>
+				    					<xsd:element name="visittime">
+				    						<xsd:simpleType>
+				    							<xsd:restriction base="xsd:string">
+				    								<xsd:pattern value="([0-1][\d]|[2][0-3]|[\d]):[0-5][\d]">
+				    								</xsd:pattern>
+				    							</xsd:restriction>
+				    						</xsd:simpleType>
+				    					</xsd:element>
+				    					<xsd:element name="providerid">
+				    						<xsd:simpleType>
+				    							<xsd:restriction base="xsd:string">
+				    								<xsd:minLength value="1"></xsd:minLength>
+				    								<xsd:maxLength value="6"></xsd:maxLength>
+				    								<xsd:pattern value="\d{1,6}"></xsd:pattern>
+				    							</xsd:restriction>
+				    						</xsd:simpleType>
+				    					</xsd:element>
+				    					<xsd:element name="providername">
+				    						<xsd:complexType>
+				    							<xsd:all>
+				    								<xsd:element name="firstname">
+				    									<xsd:simpleType>
+				    										<xsd:restriction base="xsd:string">
+				    											<xsd:minLength value="0">
+				    											</xsd:minLength>
+				    											<xsd:maxLength value="30">
+				    											</xsd:maxLength>
+				    										</xsd:restriction>
+				    									</xsd:simpleType>
+				    								</xsd:element>
+				    								<xsd:element name="lastname">
+				    									<xsd:simpleType>
+				    										<xsd:restriction base="xsd:string">
+				    											<xsd:minLength value="0">
+				    											</xsd:minLength>
+				    											<xsd:maxLength value="30">
+				    											</xsd:maxLength>
+				    										</xsd:restriction>
+				    									</xsd:simpleType>
+				    								</xsd:element>
+				    							</xsd:all>
+				    						</xsd:complexType>
+				    					</xsd:element>
+				    					<xsd:element name="providertype">
+				    						<xsd:simpleType>
+				    							<xsd:restriction base="xsd:string">
+				    								<xsd:minLength value="0"></xsd:minLength>
+				    								<xsd:maxLength value="15"></xsd:maxLength>
+				    							</xsd:restriction>
+				    						</xsd:simpleType>
+				    					</xsd:element>
+				    				</xsd:all>
+				    			</xsd:complexType>
+				    		</xsd:element>
+			    		</xsd:sequence>
+			    	</xsd:complexType>
+			    </xsd:element>
+				<xsd:element name="icd9diagnosis" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="icd9code" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="code" type="xsd:string"></xsd:element>
+										<xsd:element name="dateofonset" type="xsd:date"></xsd:element> 
+										<xsd:element name="status">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:length value="1"></xsd:length>
+													<xsd:enumeration value="A"></xsd:enumeration>
+													<xsd:enumeration value="C"></xsd:enumeration>
+													<xsd:enumeration value="D"></xsd:enumeration>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+									</xsd:all>		
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				
+				<!-- use billing_on_cheader1 and billing_on_item and billing detail-->
+				<xsd:element name="billing" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="item" minOccurs="0" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:all>
+										<xsd:element name="servicedate" type="xsd:date"></xsd:element>
+										<xsd:element name="servicecode">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:minLength value="0"></xsd:minLength>
+													<xsd:maxLength value="5"></xsd:maxLength>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<xsd:element name="servicedesc">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:minLength value="0"></xsd:minLength>
+													<xsd:maxLength value="255"></xsd:maxLength>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<xsd:element name="diagnosticcode">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:minLength value="0"></xsd:minLength>
+													<xsd:maxLength value="3"></xsd:maxLength>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+									</xsd:all>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="consultations" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="consultation" minOccurs="0" maxOccurs="unbounded">
+							    <xsd:complexType>
+									<xsd:all>
+										<xsd:element name="date" type="xsd:date"></xsd:element>
+										<xsd:element name="reason" type="xsd:string"></xsd:element>
+										<xsd:element name="sendto">
+											<xsd:simpleType>
+												<xsd:restriction base="xsd:string">
+													<xsd:minLength value="0"></xsd:minLength>
+													<xsd:maxLength value="20"></xsd:maxLength>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+									</xsd:all>
+							    </xsd:complexType>							
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<!-- New would indicate a batch (first run) process, update would indicate the incremental process -->
+				<xsd:element name="recordtype" minOccurs="1" maxOccurs="1">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:enumeration value="NEW"></xsd:enumeration>
+							<xsd:enumeration value="UPDATE"></xsd:enumeration>
+							<xsd:enumeration value="DELETE"></xsd:enumeration>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+			</xsd:all>
+		</xsd:complexType>
+    </xsd:element>
+</xsd:schema>

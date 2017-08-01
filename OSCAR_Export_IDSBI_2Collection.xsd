@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:xsddt="http://www.w3.org/2001/XMLSchema-datatypes" 
+	elementFormDefault="qualified"
+	targetNamespace="http://fammedmcmaster.ca/OSCAR_Export_IDSBI" 
+	xmlns:dfm="http://fammedmcmaster.ca/OSCAR_Export_IDSBI">
+
+	<xsd:element name="patientcollection">
+	        <xsd:complexType>
+				<xsd:sequence>
+					<xsd:element name="patientrecord" minOccurs="0" maxOccurs="unbounded">						
+				        <xsd:complexType>
+							<xsd:all>
+								<!-- province should be 5 for ontario -->
+								<xsd:element name="province" minOccurs="1" maxOccurs="1" type="xsd:int"></xsd:element>
+							
+								<!-- clinial group id, must be meaningful to HHS so there are no collisions -->
+							    <xsd:element name="facilitynumber" minOccurs="1" maxOccurs="1" type="xsd:int"></xsd:element>
+								
+								<!-- Not technically a satellite but a site under the clincal umbrella of fammed  -->
+								<xsd:element name="satelliteid" minOccurs="1" maxOccurs="1" type="xsd:int"></xsd:element>
+							
+							
+								<xsd:element name="healthcardnumber" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+							
+								<!-- maps to demographic id -->
+							    <xsd:element name="clientid" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+							
+							    <xsd:element name="birthdate" minOccurs="1" maxOccurs="1" type="xsd:date"></xsd:element>
+							
+							    <xsd:element name="gender" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+							
+							    <xsd:element name="postalcode" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+							
+							    <xsd:element name="patientstatus" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+							
+								<!-- If patient is deceased, get last update date -->
+							    <xsd:element name="terminationdate" minOccurs="0" maxOccurs="1" type="xsd:date"></xsd:element>
+							
+								<!-- If rostered date is good and no roster_termination_date present -->
+							    <xsd:element name="rostered" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+							
+							    <xsd:element name="visits" minOccurs="0" maxOccurs="1">
+							    	<xsd:complexType>
+							    		<xsd:sequence>
+								    		<xsd:element name="visit" minOccurs="0" maxOccurs="unbounded">
+								    			<xsd:complexType>
+								    				<xsd:all>
+								    					<xsd:element name="visitid" type="xsd:int"></xsd:element>
+								    					<xsd:element name="visitdate" type="xsd:date"></xsd:element>
+								    					<xsd:element name="visittime" type="xsd:string"></xsd:element>
+								    					<xsd:element name="providerid" type="xsd:string"></xsd:element>
+								    					<xsd:element name="providername">
+								    						<xsd:complexType>
+								    							<xsd:all>
+								    								<xsd:element name="firstname" type="xsd:string"></xsd:element>
+								    								<xsd:element name="lastname" type="xsd:string"></xsd:element>
+								    							</xsd:all>
+								    						</xsd:complexType>
+								    					</xsd:element>
+								    					<xsd:element name="providertype"></xsd:element>
+								    				</xsd:all>
+								    			</xsd:complexType>
+								    		</xsd:element>
+							    		</xsd:sequence>
+							    	</xsd:complexType>
+							    </xsd:element>
+								<xsd:element name="icd9diagnosis" minOccurs="0" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="icd9code" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:all>
+														<xsd:element name="code" type="xsd:string"></xsd:element>
+														<xsd:element name="dateofonset" type="xsd:date"></xsd:element> 
+														<xsd:element name="status" type="xsd:string"></xsd:element>
+													</xsd:all>		
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								
+								<!-- use billing_on_cheader1 and billing_on_item and billing detail-->
+								<xsd:element name="billing" minOccurs="0" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="item" minOccurs="0" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:all>
+														<xsd:element name="servicedate" type="xsd:date"></xsd:element>
+														<xsd:element name="servicecode" type="xsd:string"></xsd:element>
+														<xsd:element name="servicedesc" type="xsd:string"></xsd:element>
+														<xsd:element name="diagnosticcode" type="xsd:string"></xsd:element>
+													</xsd:all>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="consultations" minOccurs="0" maxOccurs="1">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="consultation" minOccurs="0" maxOccurs="unbounded">
+											    <xsd:complexType>
+													<xsd:all>
+														<xsd:element name="date" type="xsd:string"></xsd:element>
+														<xsd:element name="reason" type="xsd:string"></xsd:element>
+														<xsd:element name="sendto" type="xsd:string"></xsd:element>
+													</xsd:all>
+											    </xsd:complexType>							
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<!-- New would indicate a batch (first run) process, update would indicate the incremental process, DELETE: remove patient from system)-->
+								<xsd:element name="recordtype" minOccurs="1" maxOccurs="1" type="xsd:string">
+								</xsd:element>
+							</xsd:all>
+						</xsd:complexType>
+				    </xsd:element>
+    			</xsd:sequence>
+			</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

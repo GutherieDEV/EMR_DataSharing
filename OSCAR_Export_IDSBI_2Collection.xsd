@@ -89,6 +89,7 @@
 											<xsd:element name="item" minOccurs="0" maxOccurs="unbounded">
 												<xsd:complexType>
 													<xsd:all>
+														<xsd:element name="visitid" type="xsd:int"></xsd:element>
 														<xsd:element name="servicedate" type="xsd:date"></xsd:element>
 														<xsd:element name="servicecode" type="xsd:string"></xsd:element>
 														<xsd:element name="servicedesc" type="xsd:string"></xsd:element>

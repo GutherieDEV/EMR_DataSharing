@@ -5,7 +5,7 @@
 	elementFormDefault="qualified"
 	targetNamespace="http://fammedmcmaster.ca/OSCAR_Export_IDSBI" 
 	xmlns:dfm="http://fammedmcmaster.ca/OSCAR_Export_IDSBI">
-
+    <xsd:element name="headerinfo" type="xsd:string"></xsd:element>
 	<xsd:element name="patientcollection">
 	        <xsd:complexType>
 				<xsd:sequence>
@@ -123,4 +123,6 @@
     			</xsd:sequence>
 			</xsd:complexType>
 	</xsd:element>
+
+
 </xsd:schema>

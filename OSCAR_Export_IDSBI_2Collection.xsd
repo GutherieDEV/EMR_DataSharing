@@ -35,6 +35,10 @@
 							
 							    <xsd:element name="patientstatus" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
 							
+								<xsd:element name="provider_id" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+								
+								<xsd:element name="cpso" minOccurs="1" maxOccurs="1" type="xsd:string"></xsd:element>
+								
 								<!-- If patient is deceased, get last update date -->
 							    <xsd:element name="terminationdate" minOccurs="0" maxOccurs="1" type="xsd:date"></xsd:element>
 							

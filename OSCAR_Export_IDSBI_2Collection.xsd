@@ -15,7 +15,7 @@
 								<!-- province should be 5 for ontario -->
 								<xsd:element name="province" minOccurs="1" maxOccurs="1" type="xsd:int"></xsd:element>
 							
-								<!-- clinial group id, must be meaningful to HHS so there are no collisions -->
+								<!-- clinical group id, must be meaningful to HHS so there are no collisions -->
 							    <xsd:element name="facilitynumber" minOccurs="1" maxOccurs="1" type="xsd:int"></xsd:element>
 								
 								<!-- Not technically a satellite but a site under the clincal umbrella of fammed  -->

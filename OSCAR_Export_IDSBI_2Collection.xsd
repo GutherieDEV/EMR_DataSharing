@@ -44,6 +44,16 @@
 							
 								<!-- If rostered date is good and no roster_termination_date present -->
 							    <xsd:element name="rostered" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+							    <xsd:element name="insurancestatus" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="householdcomposition" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="clientcountry" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="educationlevel" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="ethnicbackground" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="householdincome" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="numofpeoplesupportedbyhousehold" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="religion" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="yeararrivedincnada" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+								<xsd:element name="clientlanguages" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
 							
 							    <xsd:element name="visits" minOccurs="0" maxOccurs="1">
 							    	<xsd:complexType>
@@ -63,7 +73,12 @@
 								    							</xsd:all>
 								    						</xsd:complexType>
 								    					</xsd:element>
-								    					<xsd:element name="providertype"></xsd:element>
+								    					<xsd:element name="providertype" type="xsd:string"></xsd:element>
+														<xsd:element name="postalcode" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+														<xsd:element name="patientstatus" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+														<xsd:element name="rostered" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+														<xsd:element name="gender" minOccurs="0" maxOccurs="1" type="xsd:string"></xsd:element>
+														<xsd:element name="satelliteid" minOccurs="0" maxOccurs="1" type="xsd:int"></xsd:element>
 								    				</xsd:all>
 								    			</xsd:complexType>
 								    		</xsd:element>

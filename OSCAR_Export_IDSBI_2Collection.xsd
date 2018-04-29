@@ -91,6 +91,7 @@
 											<xsd:element name="icd9code" minOccurs="0" maxOccurs="unbounded">
 												<xsd:complexType>
 													<xsd:all>
+														<xsd:element name="diagid" type="xsd:int"></xsd:element>
 														<xsd:element name="code" type="xsd:string"></xsd:element>
 														<xsd:element name="dateofonset" type="xsd:date"></xsd:element> 
 														<xsd:element name="status" type="xsd:string"></xsd:element>

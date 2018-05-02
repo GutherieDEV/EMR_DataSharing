@@ -95,6 +95,7 @@
 														<xsd:element name="code" type="xsd:string"></xsd:element>
 														<xsd:element name="dateofonset" type="xsd:date"></xsd:element> 
 														<xsd:element name="status" type="xsd:string"></xsd:element>
+														<xsd:element name="codingsystem" type="xsd:string"></xsd:element>
 													</xsd:all>		
 												</xsd:complexType>
 											</xsd:element>
